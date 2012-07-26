@@ -117,6 +117,24 @@ switch($op){
 			$module_handler =& xoops_gethandler('module');
 			$module =& $module_handler->get($mid);
 			$modname = $module->getVar('name');
+		}else{
+			switch($mid){
+			  case '-1':
+				$modname = _MD_BOOK_USERINFO;
+				break;
+			  case '-2':
+				$modname = _MD_BOOK_SEARCH;
+				break;
+			  case '-3':
+				$modname = _MD_BOOK_PM;
+				break;
+			  case '-4':
+				$modname = _MD_BOOK_INDEX;
+				break;
+			  case '-5':
+				$modname = _MD_BOOK_OUTER;
+				break;
+			}
 		}
 		
 		//割り当て
@@ -129,6 +147,8 @@ switch($op){
 		
 	}
 	
+	$onlythisite = ( $xoopsModuleConfig['shiori_prmt_outofsite'] == 0 ) ? '<br />'._MD_ONLY_THISITE : '' ;
+	
 	//割り当て
 	$xoopsTpl->assign('lang_bookmark', _MD_BOOKMARK);
 	$xoopsTpl->assign('userid', $uid);
@@ -138,6 +158,12 @@ switch($op){
 	$xoopsTpl->assign('lang_link', _MD_BOOK_NAME);
 	$xoopsTpl->assign('lang_module', _MD_BOOK_MODNAME);
 	$xoopsTpl->assign('lang_del', _MD_DEL);
+	$xoopsTpl->assign('perm_by_url', $xoopsModuleConfig['shiori_use_freeurl']);
+	$xoopsTpl->assign('action_url_add', $myurl.'/bookmark.php');
+	$xoopsTpl->assign('lang_addbm_by_url', _MD_ADD_BM_BY_URL);
+	$xoopsTpl->assign('lang_onlyself', $onlythisite);
+	$xoopsTpl->assign('lang_url', _MD_BOOK_URL);
+	$xoopsTpl->assign('lang_add', _MD_ADD_BM_NEXT);
 	//チケット発行
 	$xoopsTpl->assign('hiddenelements', '<input id="op" name="op" type="hidden" value="del" />'.$xoopsGTicket->getTicketHtml( __LINE__ ));
 	$xoopsTpl->assign('lang_nobookmarks', _MD_NO_BOOKMARKS);

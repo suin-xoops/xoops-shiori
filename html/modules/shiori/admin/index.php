@@ -29,7 +29,7 @@
 require( '../../../mainfile.php' );
 require_once( XOOPS_ROOT_PATH.'/include/cp_header.php' );
 require_once( XOOPS_ROOT_PATH."/class/xoopsmodule.php" );
-include_once( XOOPS_ROOT_PATH.'/class/xoopsformloader.php' );
+require_once( XOOPS_ROOT_PATH.'/class/xoopsformloader.php' );
 
 $mydirname = basename( dirname( dirname( __FILE__ ) ) ) ;
 $mydir = XOOPS_URL."/modules/" .$mydirname. "/";
@@ -39,6 +39,15 @@ if ( file_exists(XOOPS_ROOT_PATH."/modules/" .$mydirname. "/language/".$xoopsCon
 } else {
 	require( XOOPS_ROOT_PATH."/modules/" .$mydirname. "/language/japanese/admin.php" );
 }
+
+if ( file_exists(XOOPS_ROOT_PATH."/modules/" .$mydirname. "/language/".$xoopsConfig['language']."/main.php") ) {
+	require( XOOPS_ROOT_PATH."/modules/" .$mydirname. "/language/".$xoopsConfig['language']."/main.php" );
+} else {
+	require( XOOPS_ROOT_PATH."/modules/" .$mydirname. "/language/japanese/main.php" );
+}
+
+//栞クラス
+require_once( XOOPS_ROOT_PATH.'/modules/'.$mydirname.'/class/shiori.php' );
 
 // セキュリティチェック
 if( ! isset( $module ) || ! is_object( $module ) ) $module = $xoopsModule ;
@@ -74,6 +83,125 @@ case 'default':
         echo "\n".'</td></tr>';
         echo "\n".'</table>';
 	echo "\n".$credit;
+	xoops_cp_footer();
+	break;
+case 'lank':
+
+	$days = ( isset($_GET['days']) ) ? floatval( $_GET['days'] ) : 7 ;
+	$secago = time() - $days * 24 * 60 * 60 ;
+
+	//URL
+	$criteria = array('date>'.$secago);
+	$urls_arr =& Shiori::getURLs($criteria);
+	$counturls_arr = array_count_values($urls_arr);
+	arsort($counturls_arr);
+
+	//ファイル
+	$countfiles_arr = array();
+	foreach( $urls_arr as $url){
+		$countfiles_arr[] = preg_replace('/\.php?.*/', '.php', $url);
+	}
+	$countfiles_arr = array_count_values($countfiles_arr);
+	arsort($countfiles_arr);
+
+	//モジュール
+	$mods_arr =& Shiori::getModules($criteria);
+	$mods_arr = array_count_values($mods_arr);
+	arsort($mods_arr);
+
+	xoops_cp_header();
+        echo "\n".'<form action="'.$mydir.'admin/index.php" method="GET">';
+        echo "\n".'<h4 style="text-align:left">';
+        printf(_AM_DAYS_LANKING, '<input name="days" value="'.$days.'" size="3" />');
+        echo "\n".'<input type="hidden" name="op" value="lank" />';
+        echo "\n".'<input type="submit" value="'._SEND.'" />';
+        echo "\n".'</h4>';
+        echo "\n".'</form>';
+        echo "\n".'<table border="0" class="outer" cellspacing="1" cellpadding="4" summary="the lanking of pages" style="width:100%">';
+        echo "\n".'<tr>';
+        echo "\n".'<th align="center" width="30">'._AM_LANK.'</th>';
+        echo "\n".'<th align="center">'._AM_PAGES.'</th>';
+        echo "\n".'<th align="center" width="50">'._AM_SUM.'</th>';
+        echo "\n".'</tr>';
+	$i = 0;
+	$pre_sum = 0;
+	foreach($counturls_arr as $url => $sum){
+		$lank = "&nbsp;";
+		if( $sum != $pre_sum){ $i++; $lank = $i; }
+	        echo "\n".'<tr class="even">';
+	        echo "\n".'<td width="30" align="center">'.$lank.'</td>';
+	        echo "\n".'<td><a href="'.$url.'">'.htmlspecialchars( $url ).'</a></td>';
+	        echo "\n".'<td width="50" align="center">'.$sum.'</td>';
+	        echo "\n".'</tr>';
+		$pre_sum = $sum;
+	}
+        echo "\n".'</table>';
+        echo "\n".'<br />';
+        echo "\n".'<table border="0" class="outer" cellspacing="1" cellpadding="4" summary="the lanking of pages" style="width:100%">';
+        echo "\n".'<tr>';
+        echo "\n".'<th align="center" width="30">'._AM_LANK.'</th>';
+        echo "\n".'<th align="center">'._AM_FILES.'</th>';
+        echo "\n".'<th align="center" width="50">'._AM_SUM.'</th>';
+        echo "\n".'</tr>';
+	$i = 0;
+	$pre_sum = 0;
+	foreach($countfiles_arr as $url => $sum){
+		$lank = "&nbsp;";
+		if( $sum != $pre_sum){ $i++; $lank = $i; }
+	        echo "\n".'<tr class="even">';
+	        echo "\n".'<td width="30" align="center">'.$lank.'</td>';
+	        echo "\n".'<td><a href="'.$url.'">'.htmlspecialchars( $url ).'</a></td>';
+	        echo "\n".'<td width="50" align="center">'.$sum.'</td>';
+	        echo "\n".'</tr>';
+		$pre_sum = $sum;
+	}
+        echo "\n".'</table>';
+        echo "\n".'<br />';
+        echo "\n".'<table border="0" class="outer" cellspacing="1" cellpadding="4" summary="the lanking of pages" style="width:100%">';
+        echo "\n".'<tr>';
+        echo "\n".'<th align="center" width="30">'._AM_LANK.'</th>';
+        echo "\n".'<th align="center">'._AM_MODULES.'</th>';
+        echo "\n".'<th align="center" width="50">'._AM_SUM.'</th>';
+        echo "\n".'</tr>';
+	$i = 0;
+	$pre_sum = 0;
+	foreach($mods_arr as $mid => $sum){
+		$lank = "&nbsp;";
+		if( $sum != $pre_sum){ $i++; $lank = $i; }
+		
+		//モジュール名
+		$modname = _MD_BOOK_NOTMOD;
+		if( $mid > 0 ){
+			$module_handler =& xoops_gethandler('module');
+			$module =& $module_handler->get($mid);
+			$modname = $module->getVar('name');
+		}else{
+			switch($mid){
+			  case '-1':
+				$modname = _MD_BOOK_USERINFO;
+				break;
+			  case '-2':
+				$modname = _MD_BOOK_SEARCH;
+				break;
+			  case '-3':
+				$modname = _MD_BOOK_PM;
+				break;
+			  case '-4':
+				$modname = _MD_BOOK_INDEX;
+				break;
+			  case '-5':
+				$modname = _MD_BOOK_OUTER;
+				break;
+			}
+		}
+	        echo "\n".'<tr class="even">';
+	        echo "\n".'<td width="30" align="center">'.$lank.'</td>';
+	        echo "\n".'<td>'.htmlspecialchars( $modname ).'</td>';
+	        echo "\n".'<td width="50" align="center">'.$sum.'</td>';
+	        echo "\n".'</tr>';
+		$pre_sum = $sum;
+	}
+        echo "\n".'</table>';
 	xoops_cp_footer();
 	break;
 }

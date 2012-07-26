@@ -1,7 +1,7 @@
 <h4><{$lang_bookmark}></h4>
 <p><a href="<{$xoops_url}>/userinfo.php?uid=<{$userid}>"><{$lang_profile}></a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;<{$lang_bookmark}></p>
 <form name="bookmark" action="<{$action_url}>" method="post">
-<table border="0" class="outer" cellspacing="1" cellpadding="4" summary="bookmark table">
+<table border="0" class="outer" cellspacing="1" cellpadding="4" summary="bookmark table" style="width:100%">
   <tr>
     <th width="10" align="center"><input id="allbox" onclick="xoopsCheckGroup('bookmark', 'allbox', 'del_bok[]');" type="checkbox" value="<{$lang_checkall}>" name="allbox" /></th>
     <th width="10" align="center">&nbsp;</th>
@@ -26,4 +26,17 @@
 </table>
 <{$hiddenelements}>
 </form>
+<{if $perm_by_url == 1}>
+<form name="addbookmark" action="<{$action_url_add}>" method="post">
+<table border="0" class="outer" cellspacing="1" cellpadding="4" summary="table of addition of bookmark" style="width:100%">
+  <tr>
+    <th colspan="2"><{$lang_addbm_by_url}></td>
+  </tr>
+  <tr>
+    <td class="head"><{$lang_url}></td>
+    <td class="even"><input type="text" name="url" id="url" value="" size="100" />&nbsp;&nbsp;<input id="add" name="add" type="submit" value="<{$lang_add}>" /><{$lang_onlyself}></td>
+  </tr>
+</table>
+</form>
+<{/if}>
 <div align="center"><{$copyright}></div>
