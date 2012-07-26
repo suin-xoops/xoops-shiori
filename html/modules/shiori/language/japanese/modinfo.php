@@ -16,6 +16,8 @@ define('_SHIORI_DESC', "このモジュールはサイト内のページをブックマークするための
 
 define('_SHIORI_BLOCK1', "ブックマーク");
 define('_SHIORI_BLOCK1_DESC', "ブックマークに追加するためのブロック");
+define('_SHIORI_BLOCK2', "JavaScript読み込み");
+define('_SHIORI_BLOCK2_DESC', "「ワンクリックブックマーク」のJavaScriptを読み込むためのブロック");
 
 define('_SHIORI_CONFIG1', "ブックマークの最大保存件数");
 define('_SHIORI_CONFIG1_DESC', "１人当たりのブックマークの保存容量です。");

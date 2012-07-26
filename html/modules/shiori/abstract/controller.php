@@ -25,8 +25,10 @@ abstract class Shiori_Abstract_Controller
 			Shiori::redirect("No permisson", XOOPS_URL);
 		}
 
-		$root =& XCube_Root::getSingleton();
-		$this->config = $root->mContext->mModuleConfig;
+        $configHandler =& xoops_gethandler('config');
+  //      $this->configs =& $configHandler->getConfigsByDirname(SHIORI_DIR);
+		global $xoopsModuleConfig;
+		$this->config =& $xoopsModuleConfig;
 		$this->data['config'] = $this->config;
 	}
 
@@ -41,13 +43,15 @@ abstract class Shiori_Abstract_Controller
 			$this->template = 'shiori_'.Shiori::$controller.'_'.Shiori::$action.'.tpl';
 		}
 
-		global $xoopsOption, $xoopsTpl;
+		global $xoopsOption, $xoopsTpl, $xoopsConfig, $xoopsUser, $xoopsLogger, $xoopsUserIsAdmin;
+
+		require_once XOOPS_ROOT_PATH.'/header.php';
+
 		$xoopsOption['template_main'] =& $this->template;
 		$this->_escapeHtml($this->data);
 		$xoopsTpl->assign('shiori', $this->data);
 		$xoopsTpl->register_modifier('shiori_msg', 'Shiori::msg');
 
-		require_once XOOPS_ROOT_PATH.'/header.php';
 		require_once XOOPS_ROOT_PATH.'/footer.php';
 	}
 
@@ -72,8 +76,8 @@ abstract class Shiori_Abstract_Controller
 
 	protected function _isUser()
 	{
-		$root =& XCube_Root::getSingleton();
-		return $root->mContext->mUser->isInRole('Site.RegisteredUser');
+		global $xoopsUser;
+		return ( is_object($xoopsUser) );
 	}
 }
 

@@ -81,6 +81,8 @@ class Shiori_Controller_Default extends Shiori_Abstract_Controller
 		$url   = Shiori::post('url');
 		$title = Shiori::post('title');
 
+		$this->_encodeTitleForAjax($title);
+
 		$this->_validateUrl($url);
 		$this->_checkDatabase($url);
 
@@ -97,22 +99,22 @@ class Shiori_Controller_Default extends Shiori_Abstract_Controller
 			$modname = $module->getVar('name');
 			$mid = $module->getVar('mid');
 		}
-		elseif ( preg_match('/^'.$siteUrl.'/userinfo\.php/', $url) )
+		elseif ( preg_match('/^'.$siteUrl.'\/userinfo\.php/', $url) )
 		{
 			$modname = Shiori::msg("User Information");
 			$mid = -1;
 		}
-		elseif ( preg_match('/^'.$siteUrl.'/search\.php/', $url) )
+		elseif ( preg_match('/^'.$siteUrl.'\/search\.php/', $url) )
 		{
 			$modname = Shiori::msg("Search");
 			$mid = -2;
 		}
-		elseif ( preg_match('/^'.$siteUrl.'/readpmsg\.php/', $url) or preg_match('/^'.$siteUrl.'/viewpmsg\.php/', $url) )
+		elseif ( preg_match('/^'.$siteUrl.'\/readpmsg\.php/', $url) or preg_match('/^'.$siteUrl.'\/viewpmsg\.php/', $url) )
 		{
 			$modname = Shiori::msg("Private Message");
 			$mid = -3;
 		}
-		elseif ( preg_match('/^'.$siteUrl.'/(index\.php)/', $url) )
+		elseif ( preg_match('/^'.$siteUrl.'\/(index\.php)/', $url) )
 		{
 			$modname = Shiori::msg("Home");
 			$mid = -4;
@@ -152,6 +154,8 @@ class Shiori_Controller_Default extends Shiori_Abstract_Controller
 		$title = Shiori::post('title');
 		$mid   = Shiori::post('mid');
 		$icon  = Shiori::post('icon');
+
+		$this->_encodeTitleForAjax($title);
 
 		$this->_validateUrl($url);
 		$this->_checkDatabase($url);
@@ -309,6 +313,14 @@ class Shiori_Controller_Default extends Shiori_Abstract_Controller
 		require_once XOOPS_ROOT_PATH.'/class/xoopslists.php';
 		$lists = new XoopsLists;
 		return $lists->getSubjectsList();
+	}
+
+	protected function _encodeTitleForAjax(&$title)
+	{
+		if ( _CHARSET != 'UTF-8' )
+		{
+			$title = mb_convert_encoding($title, _CHARSET, 'UTF-8');
+		}
 	}
 }
 

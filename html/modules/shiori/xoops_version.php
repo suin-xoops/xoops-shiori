@@ -15,7 +15,7 @@ $mydirname = basename( dirname( __FILE__ ) ) ;
 
 // Main
 $modversion['name'] 	   = _SHIORI_NAME;
-$modversion['version']	   = 1.00;
+$modversion['version']	   = 1.01;
 $modversion['description'] = _SHIORI_DESC;
 $modversion['credits']	   = "Hidehito NOZAWA aka Suin";
 $modversion['author']	   = "Suin <http://suin.asia>";
@@ -36,12 +36,6 @@ $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 
 $modversion['tables'][0] = "shiori_bookmark";
 
-$modversion['templates'] = array(
-	array('file' => 'shiori_default_default.tpl'),
-	array('file' => 'shiori_default_form.tpl'),
-	array('file' => 'shiori_block_bookmark.tpl'),
-);
-
 $modversion['blocks'] = array(
 	array(
 		'file'        => 'block.php',
@@ -49,6 +43,13 @@ $modversion['blocks'] = array(
 		'name'        => _SHIORI_BLOCK1,
 		'description' => _SHIORI_BLOCK1_DESC,
 		'options'     => 'Bookmark',
+	),
+	array(
+		'file'        => 'block.php',
+		'show_func'   => 'shiori_block_show',
+		'name'        => _SHIORI_BLOCK2,
+		'description' => _SHIORI_BLOCK2_DESC,
+		'options'     => 'Javascript',
 	)
 );
 
@@ -90,5 +91,8 @@ $modversion['config'] = array(
 $modversion['hasNotification'] = 0;
 
 $modversion['hasComments'] = 0;
+
+$modversion['onInstall'] = 'class/installer.php';
+$modversion['onUpdate']  = 'class/installer.php';
 
 ?>

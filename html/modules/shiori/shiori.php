@@ -110,14 +110,14 @@ class Shiori
 	public static function get($name, $default = null)
 	{
 		$request = ( isset($_GET[$name]) ) ? $_GET[$name] : $default;
-		if ( get_magic_quotes_gpc() ) $request = stripslashes($request);
+		if ( get_magic_quotes_gpc() and !is_array($request) ) $request = stripslashes($request);
 		return $request;
 	}
 
 	public static function post($name, $default = null)
 	{
 		$request = ( isset($_POST[$name]) ) ? $_POST[$name] : $default;
-		if ( get_magic_quotes_gpc() ) $request = stripslashes($request);
+		if ( get_magic_quotes_gpc() and !is_array($request) ) $request = stripslashes($request);
 		return $request;
 	}
 
@@ -172,8 +172,7 @@ class Shiori
 
 	public static function redirect($msg, $url = null)
 	{
-		$root =& XCube_Root::getSingleton();
-		$root->mController->executeRedirect($url, 3, self::msg($msg));
+		redirect_header($url, 3, self::msg($msg));
 	}
 
 	public static function error($msg)
@@ -188,8 +187,7 @@ class Shiori
 
 		if ( $db == null )
 		{
-			$root =& XCube_Root::getSingleton();
-			$db =& $root->mController->mDB; 
+			$db =& database::getInstance(); 
 		}
 
 		return $db;
@@ -202,9 +200,8 @@ class Shiori
 
 	public static function uid()
 	{
-		$root =& XCube_Root::getSingleton();
-		$user =& $root->mContext->mXoopsUser;
-		return $user->uid();
+		global $xoopsUser;
+		return $xoopsUser->uid();
 	}
 
 	protected static function _language()
