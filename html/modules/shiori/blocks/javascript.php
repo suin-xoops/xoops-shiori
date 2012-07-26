@@ -17,8 +17,11 @@ class Shiori_Blocks_Javascript extends Shiori_Abstract_Block
 	{
 		global $xoopsTpl;
 		$dirname = basename(dirname(dirname(__FILE__)));
-		$jQueryLink = '<script type="text/javascript" src="'.XOOPS_URL.'/modules/'.$dirname.'/javascript/bookmark.js"></script>'. "\n";
-		$xoopsTpl->assign('xoops_module_header', $xoopsTpl->get_template_vars('xoops_module_header').$jQueryLink);
+
+		require_once XOOPS_ROOT_PATH.'/modules/'.$dirname.'/class/javascript_loader.php';
+
+		$xoopsModuleHeader = $xoopsTpl->get_template_vars('xoops_module_header') . shiori_get_javascript_link();
+		$xoopsTpl->assign('xoops_module_header', $xoopsModuleHeader);
 
 		return false;
 	}

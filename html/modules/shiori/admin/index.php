@@ -12,8 +12,9 @@
  */
 
 require '../../../mainfile.php';
-require_once XOOPS_ROOT_PATH."/header.php";
+require '../shiori.php';
 
+Shiori::setup();
+Shiori::execute(true);
 
-require_once XOOPS_ROOT_PATH."/footer.php";
 ?>

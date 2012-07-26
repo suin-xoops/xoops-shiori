@@ -55,7 +55,7 @@ class Shiori
 		define('SHIORI_LOADED', true);
 	}
 
-	public static function execute()
+	public static function execute($isAdmin = false)
 	{
 		$controller = self::get('controller', 'default');
 		$action     = self::get('action', 'default');
@@ -70,7 +70,15 @@ class Shiori
 		self::$_controller = self::putintoPathParts(self::$Controller);
 		self::$_action     = self::putintoPathParts(self::$Action);
 
-		$class = 'Shiori_Controller_'.self::$Controller;
+		if ( $isAdmin )
+		{
+			$class = 'Shiori_Controller_Admin'.self::$Controller;
+		}
+		else
+		{
+			$class = 'Shiori_Controller_'.self::$Controller;
+		}
+
 		$instance = new $class();
 		$instance->main();
 
@@ -233,14 +241,14 @@ class Shiori
 		$langXml = simplexml_load_file($langFile, 'Shiori_Class_Language');
 		$messages = $langXml->messages();
 
+		if ( $encode != 'utf-8' )
+		{
+			mb_convert_variables(_CHARSET, 'UTF-8', $messages);
+		}
+
 		self::$lang = $messages;
 
 		$cacheContent = "<?php\nreturn ".var_export($messages, true).";\n?>\n";
-
-		if ( $encode != 'utf-8' )
-		{
-			$cacheContent = mb_convert_encoding($cacheContent, _CHARSET, 'UTF-8');
-		}
 
 		file_put_contents($cacheFile, $cacheContent);
 	}

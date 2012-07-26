@@ -15,7 +15,7 @@ $mydirname = basename( dirname( __FILE__ ) ) ;
 
 // Main
 $modversion['name'] 	   = _SHIORI_NAME;
-$modversion['version']	   = 1.01;
+$modversion['version']	   = 1.02;
 $modversion['description'] = _SHIORI_DESC;
 $modversion['credits']	   = "Hidehito NOZAWA aka Suin";
 $modversion['author']	   = "Suin <http://suin.asia>";
