@@ -30,13 +30,13 @@ require( '../../mainfile.php' );
 
 //ユーザーで無ければ
 if ( !$xoopsUser ) {
-	redirect_header(XOOPS_URL, 3, _NOPERM);
+	xoops_error(_NOPERM);
 	exit();
 }
 
 //IDが無ければ
 if ( !$_GET['id'] ) {
-	redirect_header(XOOPS_URL, 3, _NOPERM);
+	xoops_error(_NOPERM);
 	exit();
 }
 $id = intval($_GET['id']);
@@ -53,7 +53,7 @@ require_once( XOOPS_ROOT_PATH. '/modules/' .$mydirname. '/class/shiori.php' );
 $bookmark = new Shiori($id);
 $uid = $xoopsUser->getVar('uid');
 if( $bookmark->getVar('uid') != $uid ){
-	redirect_header(XOOPS_URL, 3, _NOPERM);
+	xoops_error( _NOPERM);
 	exit();
 }
 

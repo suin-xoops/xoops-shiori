@@ -32,7 +32,7 @@ $mydirname = basename( dirname( __FILE__ ) ) ;
 
 // Main
 $modversion['name'] 	   = _MI_SHIORI_NAME;
-$modversion['version']	   = 0.5;
+$modversion['version']	   = 0.51;
 $modversion['description'] = _MI_SHIORI_DESC;
 $modversion['credits']	   = "suin";
 $modversion['author']	   = "suin <a href=\"http://www.suin.jp/\" target=\"_blank\">www.suin.jp</a>";
