@@ -98,12 +98,12 @@ case 'modsave':
 
 case 'preferance':
 		$config_handler =& xoops_gethandler('config');
-		$mod = $xoopsModule->getVar('mid');
-		if (empty($mod)) {
+		$mid = $xoopsModule->getVar('mid');
+		if (empty($mid)) {
 			header('Location: setup.php');
 			exit();
 		}
-		$config =& $config_handler->getConfigs(new Criteria('conf_modid', $mod));
+		$config =& $config_handler->getConfigs(new Criteria('conf_modid', $mid));
 		$count = count($config);
 		if ($count < 1) {
 			header('Location: setup.php?op=finish');
@@ -112,7 +112,7 @@ case 'preferance':
 		include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
 		$form = new XoopsThemeForm(_AM_MODCONFIG, 'pref_form', 'setup.php');
 		$module_handler =& xoops_gethandler('module');
-		$module =& $module_handler->get($mod);
+		$module =& $module_handler->get($mid);
 		if (file_exists(XOOPS_ROOT_PATH.'/modules/'.$module->getVar('dirname').'/language/'.$xoopsConfig['language'].'/modinfo.php')) {
 			include_once XOOPS_ROOT_PATH.'/modules/'.$module->getVar('dirname').'/language/'.$xoopsConfig['language'].'/modinfo.php';
 		}
@@ -219,9 +219,9 @@ case 'preferance':
 	break;
 
 case 'prefsave':
-		$mod = $xoopsModule->getVar('mid');
+		$mid = $xoopsModule->getVar('mid');
 		$module_handler =& xoops_gethandler('module');
-		$module =& $module_handler->get($mod);
+		$module =& $module_handler->get($mid);
 		$conf_ids = isset($_POST['conf_ids']) ? $_POST['conf_ids'] : array() ;
 		$count = count($_POST['conf_ids']);
 		$tpl_updated = false;
@@ -241,12 +241,42 @@ case 'prefsave':
 		}
 		$modname = $module->getVar('name');
 		if( file_exists( XOOPS_ROOT_PATH.'/modules/'.$module->getVar('dirname').'/admin/myblocksadmin.php' ) ){
-			redirect_header(XOOPS_URL.'/modules/'.$module->getVar('dirname').'/admin/myblocksadmin.php' , 2, _AM_DBUPDATED);
+			redirect_header(XOOPS_URL.'/modules/'.$module->getVar('dirname').'/admin/setup.php?op=block' , 2, _AM_DBUPDATED);
 		}elseif( $module->getInfo('adminindex') ) {
 			redirect_header(XOOPS_URL.'/modules/'.$module->getVar('dirname').'/'.$module->getInfo('adminindex') , 2, _AM_DBUPDATED);
 		} else {
 			redirect_header('setup.php?op=finish',2,_AM_DBUPDATED);
 		}
 	break;
+case 'block':
+	$mid = $xoopsModule->getVar('mid');
+	$navi  = '<p>';
+	$navi .= _AM_INSTALL.'&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;';
+	$navi .= _AM_MODULE_SETTING.'&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;';
+	$config =& $config_handler->getConfigs(new Criteria('conf_modid', $mid));
+	$count = count($config);
+	if ($count > 0) {
+		$navi .= _AM_MODCONFIG.'&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;';
+	}
+	if( file_exists( XOOPS_ROOT_PATH.'/modules/'.$mydirname.'/admin/myblocksadmin.php' ) ){
+		$navi .= '<span style="color:red;">'._AM_GROUP_BLOCK.'</span>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;';
+	}
+	$navi .= '<span style="color:red;">'._AM_FINISH.'</span><p>';
+	function blockadmin_modify($str){
+		global $navi;
+		$in = array(
+			"/<h3 style='text-align:left;'>([^<]*)<\/h3>/i"
+
+		);
+		$out = array(
+			'<h4>$1 - '._AM_ONSETUP.'</h4>'.$navi
+		);
+		$str = preg_replace($in, $out, $str); 
+		return $str;
+	}
+	ob_start('blockadmin_modify');
+	require_once( XOOPS_ROOT_PATH.'/modules/'.$mydirname.'/admin/myblocksadmin.php' );
+	break;
+
 }
 ?>

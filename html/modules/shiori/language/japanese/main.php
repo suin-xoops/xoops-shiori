@@ -38,5 +38,6 @@ define("_MD_SELECT_DL","削除する項目が選択されていません。");
 define("_MD_FAIL_DEL","<span style='color:red;'>%s個の項目の削除に失敗しました。</span>");
 define("_MD_SUCC_DEL","削除しました。");
 define("_MD_NO_BOOKMARKS","ブックマークは登録されていません。");
+define("_MD_COUNTER","訪問頻度");
 
 ?>

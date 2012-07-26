@@ -36,7 +36,8 @@ define("_AM_SUM","合計");
 
 define("_AM_CREDIT","<a href='http://www.suin.jp' target='_blank'>www.suin.jp</a>");
 
-// Please write your name( translater's name ) and infomation at follows;
+// 下記の行は翻訳者の名前やURLなどに変更できます。
+// Able to change a following line into the translater's name and URL.
 define("_AM_TRANSLATER","Localized by <a href='http://www.suin.jp' target='_blank'>suin</a>");
 
 ?>

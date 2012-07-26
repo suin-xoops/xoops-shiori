@@ -37,4 +37,14 @@ define("_MI_SHIORI_CONFIG3", "外部のサイトへのブックマークを許可する");
 define("_MI_SHIORI_CONFIG_D3", "「URLを入力して登録できるようにする」が有効な場合、「はい」にすると ".XOOPS_URL."/* 以外のURLへリンクすることが可能になります。");
 define("_MI_SHIORI_CONFIG4", "URLを入力して登録できるようにする");
 define("_MI_SHIORI_CONFIG_D4", "");
+define("_MI_SHIORI_CONFIG5", "星１つになるための最低訪問数");
+define("_MI_SHIORI_CONFIG_D5", "");
+define("_MI_SHIORI_CONFIG6", "星２つになるための最低訪問数");
+define("_MI_SHIORI_CONFIG_D6", "");
+define("_MI_SHIORI_CONFIG7", "星３つになるための最低訪問数");
+define("_MI_SHIORI_CONFIG_D7", "");
+define("_MI_SHIORI_CONFIG8", "星４つになるための最低訪問数");
+define("_MI_SHIORI_CONFIG_D8", "");
+define("_MI_SHIORI_CONFIG9", "星５つになるための最低訪問数");
+define("_MI_SHIORI_CONFIG_D9", "");
 ?>

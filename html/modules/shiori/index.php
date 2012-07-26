@@ -92,10 +92,21 @@ switch($op){
 	require_once( XOOPS_ROOT_PATH. '/modules/' .$mydirname. '/class/shiori.php' );
 	
 	$uid = $xoopsUser->getVar('uid');
+	$limit = $xoopsModuleConfig['shiori_bookmark_apage'];
+	$start = isset($_GET['start']) ? intval($_GET['start']) : 0 ;
 	
 	//ブックマークひきだし
 	$criteria = array('uid='.$uid);
-	$book_arr =& Shiori::getAll($criteria, true);
+	$book_arr =& Shiori::getAll($criteria, true, "date DESC", $limit, $start);
+	
+	//ナビ
+	$navi = "" ;
+	$numrows = Shiori::CountbyUid($uid);
+	if( $numrows > $limit) {
+		include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+		$nav = new XoopsPageNav($numrows,$limit,$start, 'start');
+		$navi = $nav->renderNav();
+	}
 	
 	$xoopsOption['template_main'] = 'shiori_index.html';
 	
@@ -110,6 +121,7 @@ switch($op){
 		$title = $book_arr[$i]->getVar('name', 'p');
 		$mid = $book_arr[$i]->getVar('mid');
 		$icon = $book_arr[$i]->getVar('icon', 'p');
+		$counter = $book_arr[$i]->getVar('counter');
 		
 		//モジュール名
 		$modname = _MD_BOOK_NOTMOD;
@@ -137,12 +149,33 @@ switch($op){
 			}
 		}
 		
+		//訪問頻度
+		$countimg = '&nbsp;';
+		if( $counter >= $xoopsModuleConfig['shiori_one_star'] ){
+			$countimg .= '<img src="' .$myurl. '/images/star.png" alt="" />';
+		}
+		if( $counter >= $xoopsModuleConfig['shiori_two_stars'] ){
+			$countimg .= '<img src="' .$myurl. '/images/star.png" alt="" />';
+		}
+		if( $counter >= $xoopsModuleConfig['shiori_three_stars'] ){
+			$countimg .= '<img src="' .$myurl. '/images/star.png" alt="" />';
+		}
+		if( $counter >= $xoopsModuleConfig['shiori_four_stars'] ){
+			$countimg .= '<img src="' .$myurl. '/images/star.png" alt="" />';
+		}
+		if( $counter >= $xoopsModuleConfig['shiori_five_stars'] ){
+			$countimg .= '<img src="' .$myurl. '/images/star.png" alt="" />';
+		}
+		
 		//割り当て
 		$bookmarks['id'] = $id;
-		$bookmarks['url'] = $url;
+		$bookmarks['address'] = $url;
+		$bookmarks['url'] = $myurl."/load.php?id=".$id;
 		$bookmarks['link']  = $title;
 		$bookmarks['module'] = $modname;
 		$bookmarks['icon'] = ( !empty( $icon ) ) ? XOOPS_URL."/images/subject/$icon" : XOOPS_URL."/images/blank.gif" ;
+		$bookmarks['counter'] = $counter;
+		$bookmarks['countimg'] = $countimg;
 		$xoopsTpl->append('bookmarks', $bookmarks);
 		
 	}
@@ -150,20 +183,22 @@ switch($op){
 	$onlythisite = ( $xoopsModuleConfig['shiori_prmt_outofsite'] == 0 ) ? '<br />'._MD_ONLY_THISITE : '' ;
 	
 	//割り当て
-	$xoopsTpl->assign('lang_bookmark', _MD_BOOKMARK);
 	$xoopsTpl->assign('userid', $uid);
-	$xoopsTpl->assign('lang_profile', _MD_PROFILE);
+	$xoopsTpl->assign('perm_by_url', $xoopsModuleConfig['shiori_use_freeurl']);
+	$xoopsTpl->assign('action_url_add', $myurl.'/bookmark.php');
 	$xoopsTpl->assign('action_url', $myurl.'/index.php');
+	$xoopsTpl->assign('navi', $navi);
+	$xoopsTpl->assign('lang_bookmark', _MD_BOOKMARK);
+	$xoopsTpl->assign('lang_profile', _MD_PROFILE);
 	$xoopsTpl->assign('lang_checkall', _MD_CHECHKALL);
 	$xoopsTpl->assign('lang_link', _MD_BOOK_NAME);
 	$xoopsTpl->assign('lang_module', _MD_BOOK_MODNAME);
 	$xoopsTpl->assign('lang_del', _MD_DEL);
-	$xoopsTpl->assign('perm_by_url', $xoopsModuleConfig['shiori_use_freeurl']);
-	$xoopsTpl->assign('action_url_add', $myurl.'/bookmark.php');
 	$xoopsTpl->assign('lang_addbm_by_url', _MD_ADD_BM_BY_URL);
 	$xoopsTpl->assign('lang_onlyself', $onlythisite);
 	$xoopsTpl->assign('lang_url', _MD_BOOK_URL);
 	$xoopsTpl->assign('lang_add', _MD_ADD_BM_NEXT);
+	$xoopsTpl->assign('lang_counter', _MD_COUNTER);
 	//チケット発行
 	$xoopsTpl->assign('hiddenelements', '<input id="op" name="op" type="hidden" value="del" />'.$xoopsGTicket->getTicketHtml( __LINE__ ));
 	$xoopsTpl->assign('lang_nobookmarks', _MD_NO_BOOKMARKS);
@@ -173,4 +208,3 @@ switch($op){
 	break;
 }
 ?>
-
