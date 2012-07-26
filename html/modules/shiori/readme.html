@@ -108,7 +108,7 @@ Shioriモジュールは、ユーザが個人のブックマーク帳を所有�
 読みかけのページ、毎日チェックする掲示板、いつか役立つかもしれない記事などを見失わないようにすることを目的に作られました。
 
 <h3>動作はこんな感じです(YouTube動画)</h3>
-<object width="480" height="295"><param name="movie" value="http://www.youtube.com/v/aP2YoMs6f5Q&hl=ja&fs=1&rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/aP2YoMs6f5Q&hl=ja&fs=1&rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="295"></embed></object>
+<object width="480" height="295"><param name="movie" value="http://www.youtube.com/v/um4SyJ61rWQ&hl=ja&fs=1&rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/um4SyJ61rWQ&hl=ja&fs=1&rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="295"></embed></object>
 
 <h2>動作環境</h2>
 <table cellpadding="0" cellspacing="0" class="news" border="0">
@@ -122,11 +122,11 @@ Shioriモジュールは、ユーザが個人のブックマーク帳を所有�
 </tr>
 <tr>
 <td>XOOPS</td>
-<td>XOOPS Cube 2.16 以上</td>
+<td>XOOPS Cube 2.1.6~ / XOOPS 2.0.16a JP</td>
 </tr>
 <tr>
 <td>文字コード</td>
-<td>UTF-8</td>
+<td>UTF-8(推奨) / EUC-JP</td>
 </tr>
 </table>
 
@@ -141,7 +141,7 @@ Shioriモジュールは、ユーザが個人のブックマーク帳を所有�
 <ol>
 <li>圧縮ファイルを解凍して、shiori を html/modules/ の下にコピーしてください。</li>
 <li>「モジュール管理」でインストールを実行してください。</li>
-<li>「グループ管理」でブックマークを許可するグループにアクセス権減を与えてください。</li>
+<li>「グループ管理」でブックマークを許可するグループにアクセス権限を与えてください。</li>
 <li>「ブロック管理」で「ブックマーク」ブロックを全ページに表示するように設定してください。</li>
 </ol>
 
@@ -192,6 +192,9 @@ jQueryは自前でダウンロードしてくるか、Googleがホスティン�
 &lt;/table&gt;
 </pre>
 
+<h3>XOOPS2で使う場合</h3>
+<p>XOOPS2で使用する場合は上に加えて、ブロック管理で「JavaScript読み込み」ブロックを「全ページ」に表示するように設定してください。アクセス権限は、Shioriを使うグループに合わせて設定してください。</p>
+<p>「JavaScript読み込み」ブロックはjQueryのプラグインを自動で有効にするためのものです。XOOPS Cubeでは使用しないでください。</p>
 
 
 <h2>アンインストール方法</h2>
@@ -215,6 +218,18 @@ jQueryは自前でダウンロードしてくるか、Googleがホスティン�
 <td align="center">2009.11.01</td>
 <td align="center">---</td>
 <td>初回リリース</td>
+</tr>
+<tr>
+<td align="center">1.01</td>
+<td align="center">2009.11.03</td>
+<td align="center">---</td>
+<td>
+<ol>
+<li>jQueryが読み込まれていないときJavaScriptエラーがでるのを修正(umotoさん 私信)</li>
+<li>UTF-8以外のときワンクリックブックマークが文字化けするのを修正(umotoさん 私信)</li>
+<li>XOOPS 2に部分対応(テンプレートマネージャ未対応)</li>
+</ol>
+</td>
 </tr>
 </tbody>
 </table>
