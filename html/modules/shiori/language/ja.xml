@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dl>
+	<dt>Bookmarks</dt>
+	<dd>ブックマーク</dd>
+	<dt>Profile</dt>
+	<dd>プロフィール</dd>
+	<dt>You can bookmark {1} pages.</dt>
+	<dd>{1}ページまでブックマーク登録できます。</dd>
+	<dt>You can bookmark other sites.</dt>
+	<dd>外部サイトのブックマーク登録ができます。</dd>
+	<dt>You cannot bookmark other sites.</dt>
+	<dd>このサイトのページのみブックマークできます。</dd>
+	<dt>check all</dt>
+	<dd>すべてチェックする</dd>
+	<dt>Link</dt>
+	<dd>リンク</dd>
+	<dt>Module</dt>
+	<dd>モジュール</dd>
+	<dt>Delete</dt>
+	<dd>チェックしたものを削除</dd>
+	<dt>No bookmarks</dt>
+	<dd>ブックマークがありません。</dd>
+	<dt>Add bookmark from URL</dt>
+	<dd>URLからブックマークを追加</dd>
+	<dt>URL</dt>
+	<dd>URL</dd>
+	<dt>Add</dt>
+	<dd>追加</dd>
+	<dt>Icon</dt>
+	<dd>アイコン</dd>
+	<dt>Title</dt>
+	<dd>ページ名</dd>
+	<dt>Save</dt>
+	<dd>保存</dd>
+	<dt>This page has been bookmarked.</dt>
+	<dd>このページはブックマークされています。</dd>
+	<dt>Do you want to bookmark this page?</dt>
+	<dd>このページをブックマークしますか?</dd>
+	<dt>Submit</dt>
+	<dd>送信</dd>
+	<dt>No module</dt>
+	<dd>モジュール外</dd>
+	<dt>User Information</dt>
+	<dd>ユーザー</dd>
+	<dt>Search</dt>
+	<dd>検索</dd>
+	<dt>Private Message</dt>
+	<dd>プライベートメッセージ</dd>
+	<dt>Home</dt>
+	<dd>ホーム</dd>
+	<dt>Other Site</dt>
+	<dd>外部サイト</dd>
+	<dt>{1} bookmarks was not deleted.</dt>
+	<dd>{1}個のブックマークの削除が失敗しました。</dd>
+	<dt>Database Error</dt>
+	<dd>データベースエラー</dd>
+	<dt>Successly bookmarked.</dt>
+	<dd>ブックマークしました。</dd>
+	<dt>Successly deleted.</dt>
+	<dd>ブックマークを削除しました。</dd>
+	<dt>URL is empty.</dt>
+	<dd>URLが未入力です。</dd>
+	<dt>URL is invalid.</dt>
+	<dd>正しくないURLです。</dd>
+	<dt>Other site pages cannot be bookmarked.</dt>
+	<dd>外部サイトはブックマークできません。</dd>
+	<dt>No space.</dt>
+	<dd>登録できるブックマーク数の上限を超えました。</dd>
+	<dt>This URL has already been bookmarked.</dt>
+	<dd>このページは既にブックマーク済みです。</dd>
+	<dt>No permisson</dt>
+	<dd>アクセス権限がありません。</dd>
+</dl>

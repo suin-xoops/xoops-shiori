@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>Shioriモジュール説明書</title>
+<style type="text/css">
+<!--
+body{
+  font-size : 80%;
+}
+a{
+  text-decoration : none;
+}
+h1{
+  font-size : 200%;
+  letter-spacing : 1px;
+  color : #ff6600;
+  text-align : center;
+}
+h2{
+  font-size : 120%;
+  border-left-width : 3px;
+  border-left-style : solid;
+  border-left-color : #ff6600;
+  padding-left : 5px;
+  color : #ff6600;
+  border-bottom-width : 1px;
+  border-bottom-style : dotted;
+  border-bottom-color : #ff6600;
+}
+h3{
+  font-size : 100%;
+  padding-left : 5px;
+  color : #ff6600;
+}
+#main_div{
+  text-align : left;
+  width : 500px;
+  height : 100%;
+  line-height : 1.4;
+}
+table{
+  width : 100%;
+  border-style : solid solid solid solid;
+  border-top-color : silver;
+  border-right-color : silver;
+  border-bottom-color : silver;
+  border-left-color : silver;
+}
+td{
+  padding : 2px;
+  border-width : 1px 1px 1px 1px;
+  border-style : solid solid solid solid;
+  border-color : silver silver silver silver;
+}
+th{
+  padding : 2px;
+  border-width : 1px 1px 1px 1px;
+  border-style : solid solid solid solid;
+  border-color : silver silver silver silver;
+}
+#quote{
+  padding-left : 5px;
+  margin-top : 5px;
+  margin-left : 10px;
+  margin-right : 10px;
+  margin-bottom : 5px;
+  border-left-width : 1px;
+  border-left-style : solid;
+  border-left-color : #ffbe7d;
+}
+img{
+  padding-left : 10px;
+  padding-right : 10px;
+}
+pre.code{
+  background: #FFFFFF;
+  border: 1px inset #000080;
+  padding: 0px 6px 6px 6px;
+  width: 480px;
+  height: 5em;
+  margin: 0.5em;
+  overflow: auto;
+}
+.news{
+  font-size : 1em;
+  letter-spacing : 1px;
+}
+.align_right{
+  text-align : right;
+}
+.align_center{
+  text-align : center;
+}
+-->
+</style>
+</head>
+<body>
+<div align="center">
+<div id="main_div">
+<h1>Shiori</h1>
+
+<h2>このモジュールについて</h2>
+<img src="images/shiori_logo.png" border="0" align="left">
+Shioriモジュールは、ユーザが個人のブックマーク帳を所有でき、サイト内のあらゆるページをブックマークできるようにするモジュールです。
+読みかけのページ、毎日チェックする掲示板、いつか役立つかもしれない記事などを見失わないようにすることを目的に作られました。
+
+<h3>動作はこんな感じです(YouTube動画)</h3>
+<object width="480" height="295"><param name="movie" value="http://www.youtube.com/v/aP2YoMs6f5Q&hl=ja&fs=1&rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/aP2YoMs6f5Q&hl=ja&fs=1&rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="295"></embed></object>
+
+<h2>動作環境</h2>
+<table cellpadding="0" cellspacing="0" class="news" border="0">
+<tr>
+<td>PHPバージョン</td>
+<td>5.2.4 以上</td>
+</tr>
+<tr>
+<td></td>
+<td>mbstring 必須</td>
+</tr>
+<tr>
+<td>XOOPS</td>
+<td>XOOPS Cube 2.16 以上</td>
+</tr>
+<tr>
+<td>文字コード</td>
+<td>UTF-8</td>
+</tr>
+</table>
+
+<h2>特徴</h2>
+<ul>
+<li>ユーザ個別にブックマーク帳を作れる</li>
+<li>ワンクリックでブックマーク登録できる</li>
+<li>サイト内外のページがブックマーク可能</li>
+</ul>
+
+<h2>インストール方法</h2>
+<ol>
+<li>圧縮ファイルを解凍して、shiori を html/modules/ の下にコピーしてください。</li>
+<li>「モジュール管理」でインストールを実行してください。</li>
+<li>「グループ管理」でブックマークを許可するグループにアクセス権減を与えてください。</li>
+<li>「ブロック管理」で「ブックマーク」ブロックを全ページに表示するように設定してください。</li>
+</ol>
+
+<h2>ワンクリックブックマーク</h2>
+<img src="images/unbookmarked.png" border="0" align="left"><img src="images/loading.gif" border="0" align="left"><img src="images/bookmarked.png" border="0" align="left">
+<p>
+ワンクリックブックマークとは、星アイコンをクリックするだけで、そのページをShioriにブックマークできる機能です。
+この機能により、ユーザは少ない手間でページをブックマークすることができ、使い勝手が向上します。
+</p>
+
+<h3>利用にはjQuery 1.2.6が必要です</h3>
+<p>
+ワンクリックブックマークを使うには、ライブラリ<a href="http://jquery.com/">jQuery</a> 1.2.6以降が必要です。
+theme.htmlで、&lt;{$xoops_module_header}&gt;より上にjQueryを読み込むタグを追加してください。
+jQueryは自前でダウンロードしてくるか、Googleがホスティングしているライブラリを利用するなどしてください。
+参考までに、Googleがホスティングしているライブラリを利用するには次のようなタグを追加します。
+</p>
+<pre class="code">
+&lt;script type="text/javascript" src="http://www.google.com/jsapi"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;google.load("jquery", "1.2.6");&lt;/script&gt;
+</pre>
+
+<h3>ユーザメニューに設置する例</h3>
+<p>
+次は、ワンクリックブックマークのボタンをユーザメニューブロック(legacy_block_usermenu.html)に設置した例です。
+オレンジ色でハイライトされたところが、ワンクリックブックマークのために追加した部分です。
+</p>
+<pre class="code" style="height:30em;">
+&lt;table cellspacing=&quot;0&quot;&gt;
+  &lt;tr&gt;
+    &lt;td id=&quot;usermenu&quot;&gt;
+      &lt;a class=&quot;menuTop&quot; href=&quot;&lt;{$xoops_url}&gt;/user.php&quot;&gt;&lt;{$smarty.const._MB_LEGACY_VACNT}&gt;&lt;/a&gt;
+      &lt;a href=&quot;&lt;{$xoops_url}&gt;/edituser.php&quot;&gt;&lt;{$smarty.const._MB_LEGACY_EACNT}&gt;&lt;/a&gt;
+      &lt;a href=&quot;&lt;{$xoops_url}&gt;/notifications.php&quot;&gt;&lt;{$smarty.const._MB_LEGACY_NOTIF}&gt;&lt;/a&gt;
+      <span style="color: #ff6600;">&lt;a href=&quot;&lt;{$xoops_url}&gt;/modules/shiori/&quot;&gt;&lt;img src=&quot;&lt;{$xoops_url}&gt;/modules/shiori/images/unbookmarked.png&quot; id=&quot;shiori_bookmark_star&quot; style=&quot;float:right;display:none;&quot; rel=&quot;&lt;{$xoops_url}&gt;&quot; /&gt;Bookmark&lt;/a&gt;</span>
+      &lt;a href=&quot;&lt;{$xoops_url}&gt;/user.php?op=logout&quot;&gt;&lt;{$smarty.const._MB_LEGACY_LOUT}&gt;&lt;/a&gt;      &lt;{if $block.flagShowInbox}&gt;
+        &lt;{if $block.new_messages &gt; 0}&gt;
+          &lt;a class=&quot;highlight&quot; href=&quot;&lt;{$block.inbox_url}&gt;&quot;&gt;&lt;{$smarty.const._MB_LEGACY_INBOX}&gt; (&lt;span style=&quot;color:#ff0000; font-weight: bold;&quot;&gt;&lt;{$block.new_messages}&gt;&lt;/span&gt;)&lt;/a&gt;
+        &lt;{else}&gt;
+          &lt;a href=&quot;&lt;{$block.inbox_url}&gt;&quot;&gt;&lt;{$smarty.const._MB_LEGACY_INBOX}&gt;&lt;/a&gt;
+        &lt;{/if}&gt;
+      &lt;{/if}&gt;
+      &lt;{if $block.show_adminlink}&gt;
+        &lt;a href=&quot;&lt;{$xoops_url}&gt;/admin.php&quot;&gt;&lt;{$smarty.const._MB_LEGACY_ADMENU}&gt;&lt;/a&gt;
+      &lt;{/if}&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+
+
+<h2>アンインストール方法</h2>
+<ol>
+<li>「モジュール管理」でShioriモジュールを非アクティブに変更後、アンインストールを実行してください。</li>
+<li>html/modules/から shiori を削除してください。</li>
+</ol>
+
+<h2>更新履歴</h2>
+<table cellpadding="0" cellspacing="0" class="news" border="0">
+<col span="3">
+<tbody>
+<tr>
+<th align="center">Ver</th>
+<th align="center">Date</th>
+<th align="center">Category</th>
+<th align="center">Note</th>
+</tr>
+<tr>
+<td align="center">1.00</td>
+<td align="center">2009.11.01</td>
+<td align="center">---</td>
+<td>初回リリース</td>
+</tr>
+</tbody>
+</table>
+
+<h2>技術情報</h2>
+<h3>言語ファイル</h3>
+<p>
+shioriではmodinfo.phpをのぞき、言語ファイルをXMLで作っています。
+XOOPSの文字コードに関係なく、すべての言語ファイルはUTF-8です。
+</p>
+<p>
+shioriの呼び出し時にXMLの言語ファイルは、PHPにコンパイルされキャッシュとして保存されます。
+保存される場所は、XOOPS_ROOT_PATH.'/cache'かXOOPS_TRUST_PATH.'/cache'のいずれかです。
+</p>
+<p>
+shiori_{言語コード}_{文字コード}.phpというファイルが作成されます。
+(例えば、shiori_ja_utf-8.phpなど)
+このキャッシュファイルは削除されないかぎり、更新されません。
+</p>
+
+<h2>開発者</h2>
+Suin (<a href="http://suin.asia">http://suin.asia</a>)
+
+</div>
+</div>
+</body>
+</html>
