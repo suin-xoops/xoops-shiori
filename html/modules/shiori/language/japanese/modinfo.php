@@ -17,7 +17,8 @@ define("_MI_SHIORI_DESC","このモジュールはサイト内のページをブックマークするため
 define("_MI_SHIORI_MENU_D0", "基本的な設定を行います。");
 define("_MI_SHIORI_MENU1", "グループ/ブロック管理");
 define("_MI_SHIORI_MENU_D1", "アクセス権限やブロックの管理を行います。");
-
+define("_MI_SHIORI_MENU2", "人気ブックマーク");
+define("_MI_SHIORI_MENU_D2", "ブックマークの多いページのランキングです。");
 
 // Names of blocks for this module (Not all module has blocks)
 define("_MI_SHIORI_BLOCK1", "ブックマーク");
@@ -32,4 +33,8 @@ define("_MI_SHIORI_CONFIG1", "ブックマークの最大保存件数");
 define("_MI_SHIORI_CONFIG_D1", "１人当たりのブックマークの保存容量です。");
 define("_MI_SHIORI_CONFIG2", "１ページ当たりに表示するブックマークの件数");
 define("_MI_SHIORI_CONFIG_D2", "");
+define("_MI_SHIORI_CONFIG3", "外部のサイトへのブックマークを許可する");
+define("_MI_SHIORI_CONFIG_D3", "「URLを入力して登録できるようにする」が有効な場合、「はい」にすると ".XOOPS_URL."/* 以外のURLへリンクすることが可能になります。");
+define("_MI_SHIORI_CONFIG4", "URLを入力して登録できるようにする");
+define("_MI_SHIORI_CONFIG_D4", "");
 ?>

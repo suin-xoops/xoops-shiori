@@ -43,14 +43,22 @@ function b_shiori_block()
 		$mid = 0;
 	}
 	
+	$url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	
+	$db =& Database::getInstance();
+	$uid = $xoopsUser->getVar('uid');
+	$sql = "SELECT COUNT(*) FROM ".$db->prefix("shiori_bookmark")." WHERE uid=".$uid." AND url LIKE ".$db->quoteString("%".$url);
+	list($sum) = $db->fetchRow($db->query($sql));
+	
 	$block = array();
-	$block['lang_bmthispage'] = _MB_BM_THISPAGE;
+	$block['lang_bmthispage'] = ( $sum > 0 ) ? _MB_BM_ALREADY_BOOKMARKED : _MB_BM_THISPAGE ;
 	$block['submit'] = _MB_ADD_BOOKMARK;
 	$block['action_url'] = XOOPS_URL."/modules/".$mydirname."/bookmark.php";
-	$block['url'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	$block['url'] = $url;
 	$block['mid'] = $mid;
 	$block['title'] = $xoopsTpl->get_template_vars("xoops_pagetitle");
 	$block['mydirname'] = $mydirname;
+	$block['disabled'] = ( $sum > 0 ) ? "disabled" : "" ;
 	return $block;
 }
 

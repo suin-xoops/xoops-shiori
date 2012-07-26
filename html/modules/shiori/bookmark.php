@@ -52,20 +52,20 @@ include_once( XOOPS_ROOT_PATH.'/modules/'.$mydirname.'/include/gtickets.php' );
 if( $op == 'form' ){
 	
 	//URLが空
-	if( empty( $_POST['url'] ) ){
+	if( empty( $_REQUEST['url'] ) ){
 		redirect_header(XOOPS_URL, 3, _MD_EMPTY_URL);
 		exit();
 	}
 	
 	//当サイトのURLではない
-	if( !preg_match( '|'.XOOPS_URL.'|', $_POST['url'] ) ){
+	if( !preg_match( '|'.XOOPS_URL.'|', $_REQUEST['url'] ) && $xoopsModuleConfig['shiori_prmt_outofsite'] == 0 ){
 		redirect_header(XOOPS_URL, 3, _MD_NOT_THISITE);
 		exit();
 	}
 	
 	//初期化
-	$url   = $myts->stripSlashesGPC( $myts->htmlSpecialChars( $_POST['url'] ) );
-	$mid   = isset( $_POST['mid'] )   ? intval( $_POST['mid'] ) : 0 ;
+	$url   = $myts->stripSlashesGPC( $myts->htmlSpecialChars( $_REQUEST['url'] ) );
+//	$mid   = isset( $_POST['mid'] )   ? intval( $_POST['mid'] ) : 0 ;
 	
 	//容量確認
 	$db =& Database::getInstance();
@@ -73,16 +73,49 @@ if( $op == 'form' ){
 	$sql = "SELECT COUNT(*) FROM ".$db->prefix("shiori_bookmark")." WHERE uid=".$uid."";
 	list($sum) = $db->fetchRow($db->query($sql));
 	if( $sum >= $xoopsModuleConfig['shiori_capacity'] ){
-		redirect_header($url, 5, _MD_NO_SPACE);
+		redirect_header($myurl, 5, _MD_NO_SPACE);
+		exit();
+	}
+	
+	//
+	$nottrans = ( isset($_GET['url']) ) ? 1 : 0 ;
+	
+	//重複確認
+	$sql = "SELECT COUNT(*) FROM ".$db->prefix("shiori_bookmark")." WHERE uid=".$uid." AND url=".$db->quoteString( $_REQUEST['url'] );
+	list($sum) = $db->fetchRow($db->query($sql));
+	if( $sum > 0 ){
+		redirect_header($myurl, 5, _MD_ALREDY_BOOKMARKED);
 		exit();
 	}
 	
 	//モジュール名
 	$modname = _MD_BOOK_NOTMOD;
-	if( $mid > 0 ){
-		$module_handler =& xoops_gethandler('module');
-		$module =& $module_handler->get($mid);
-		$modname = $module->getVar('name');
+	$mid = 0;
+	if( preg_match('/\/modules\/[^\/]+\//', $url ) ){
+		$dirname = preg_replace('/.*\/modules\/([^\/]+)\/.*/', '$1', $url );
+	        $sql = 'SELECT COUNT(*) FROM '.$db->prefix('modules').' WHERE dirname='.$db->quoteString($dirname);
+		list( $count ) = $db->fetchRow($db->query($sql));
+		if( $count > 0 ){
+			$module_handler =& xoops_gethandler('module');
+			$module =& $module_handler->getByDirname($dirname);
+			$modname = $module->getVar('name');
+			$mid = $module->getVar('mid');
+		}
+	}elseif( preg_match('|'.XOOPS_URL.'/userinfo\.php.*|', $url ) ){
+		$modname = _MD_BOOK_USERINFO;
+		$mid = -1;
+	}elseif( preg_match('|'.XOOPS_URL.'/search\.php.*|', $url ) ){
+		$modname = _MD_BOOK_SEARCH;
+		$mid = -2;
+	}elseif( preg_match('|'.XOOPS_URL.'/readpmsg\.php.*|', $url ) || preg_match('|'.XOOPS_URL.'/viewpmsg\.php.*|', $url ) ){
+		$modname = _MD_BOOK_PM;
+		$mid = -3;
+	}elseif( preg_match('|'.XOOPS_URL.'/(index\.php)|', $url ) ){
+		$modname = _MD_BOOK_INDEX;
+		$mid = -4;
+	}elseif( !preg_match('|'.XOOPS_URL.'/.*|', $url ) ){
+		$modname = _MD_BOOK_OUTER;
+		$mid = -5;
 	}
 	
 	$xoopsOption['template_main'] = 'shiori_form.html';
@@ -124,7 +157,7 @@ if( $op == 'form' ){
 	$xoopsTpl->assign('bookicon', $bookicon);
 	$xoopsTpl->assign('copyright', '<a href="http://www.suin.jp/" target="_blank">shiori</a>');
 	//チケット発行
-	$xoopsTpl->assign('hiddenelements', $xoopsGTicket->getTicketHtml( __LINE__ ));
+	$xoopsTpl->assign('hiddenelements', $xoopsGTicket->getTicketHtml( __LINE__ ).'<input type="hidden" name="nottrans" value="'.$nottrans.'" />');
 	
 	require_once( XOOPS_ROOT_PATH.'/footer.php' );
 	
@@ -144,7 +177,7 @@ if( $op == 'save' ){
 	}
 	
 	//当サイトのURLではない
-	if( !preg_match( '|'.XOOPS_URL.'|', $_POST['url'] ) ){
+	if( !preg_match( '|'.XOOPS_URL.'|', $_POST['url'] ) && $xoopsModuleConfig['shiori_prmt_outofsite'] == 0 ){
 		redirect_header(XOOPS_URL, 3, _MD_NOT_THISITE);
 		exit();
 	}
@@ -157,6 +190,7 @@ if( $op == 'save' ){
 	$title = isset( $_POST['title'] ) ? $myts->addSlashes( $_POST['title'] ) : "" ;
 	$icon = isset( $_POST['icon'] ) ? $myts->addSlashes( $_POST['icon'] ) : "" ;
 	$mid = isset( $_POST['mid'] ) ? intval( $_POST['mid'] ) : 0 ;
+	$nottrans = isset( $_POST['nottrans'] ) ? intval( $_POST['nottrans'] ) : 0 ;
 	
 	//容量確認
 	$db =& Database::getInstance();
@@ -164,7 +198,15 @@ if( $op == 'save' ){
 	$sql = "SELECT COUNT(*) FROM ".$db->prefix("shiori_bookmark")." WHERE uid=".$uid."";
 	list($sum) = $db->fetchRow($db->query($sql));
 	if( $sum >= $xoopsModuleConfig['shiori_capacity'] ){
-		redirect_header($url, 5, _MD_NO_SPACE);
+		redirect_header($myurl, 5, _MD_NO_SPACE);
+		exit();
+	}
+	
+	//重複確認
+	$sql = "SELECT COUNT(*) FROM ".$db->prefix("shiori_bookmark")." WHERE uid=".$uid." AND url=".$db->quoteString( $_REQUEST['url'] );
+	list($sum) = $db->fetchRow($db->query($sql));
+	if( $sum > 0 ){
+		redirect_header($myurl, 5, _MD_ALREDY_BOOKMARKED);
 		exit();
 	}
 	
@@ -179,6 +221,12 @@ if( $op == 'save' ){
 	//保存失敗
 	if( !$shiori->store() ){
 		redirect_header($url, 5, $shiori->getHtmlErrors());
+		exit();
+	}
+	
+	if( $nottrans == 1 ){
+		//保存成功
+		redirect_header($myurl, 1, _MD_BOOKMARKED);
 		exit();
 	}
 	

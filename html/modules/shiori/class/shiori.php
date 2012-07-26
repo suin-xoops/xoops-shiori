@@ -127,5 +127,46 @@ class Shiori extends XoopsObject
 		return $ret;
 	}
 
+	function &getURLs($criteria=array(), $orderby="date DESC", $limit=0, $start=0)
+	{
+		$db =& Database::getInstance();
+		$ret = array();
+		$where_query = "";
+		if ( is_array($criteria) && count($criteria) > 0 ) {
+			$where_query = " WHERE";
+			foreach ( $criteria as $c ) {
+				$where_query .= " $c AND";
+			}
+			$where_query = substr($where_query, 0, -4);
+		}
+		$sql = "SELECT url FROM ".$db->prefix("shiori_bookmark")."$where_query ORDER BY $orderby";
+		$result = $db->query($sql,intval($limit),intval($start));
+		while ( $myrow = $db->fetchArray($result) ) {
+			$ret[] = $myrow['url'];
+		}
+		//echo $sql;
+		return $ret;
+	}
+
+	function &getModules($criteria=array(), $orderby="date DESC", $limit=0, $start=0)
+	{
+		$db =& Database::getInstance();
+		$ret = array();
+		$where_query = "";
+		if ( is_array($criteria) && count($criteria) > 0 ) {
+			$where_query = " WHERE";
+			foreach ( $criteria as $c ) {
+				$where_query .= " $c AND";
+			}
+			$where_query = substr($where_query, 0, -4);
+		}
+		$sql = "SELECT mid FROM ".$db->prefix("shiori_bookmark")."$where_query ORDER BY $orderby";
+		$result = $db->query($sql,intval($limit),intval($start));
+		while ( $myrow = $db->fetchArray($result) ) {
+			$ret[] = $myrow['mid'];
+		}
+		//echo $sql;
+		return $ret;
+	}
 }
 ?>

@@ -32,7 +32,7 @@ $mydirname = basename( dirname( __FILE__ ) ) ;
 
 // Main
 $modversion['name'] 	   = _MI_SHIORI_NAME;
-$modversion['version']	   = 0.1;
+$modversion['version']	   = 0.2;
 $modversion['description'] = _MI_SHIORI_DESC;
 $modversion['credits']	   = "suin";
 $modversion['author']	   = "suin <a href=\"http://www.suin.jp/\" target=\"_blank\">www.suin.jp</a>";
@@ -43,7 +43,7 @@ $modversion['image']	   = "images/shiori_logo.png";
 $modversion['dirname']	   = $mydirname;
 
 // Menu
-$modversion['hasMain']	      = 1;
+$modversion['hasMain']	   = 1;
 
 // Admin
 $modversion['hasAdmin']	   = 1;
@@ -99,6 +99,20 @@ $modversion['config'][$c]['formtype']    = "text";
 $modversion['config'][$c]['valuetype']   = "int";
 $modversion['config'][$c]['default']     = 15;
 $c++;*/
+$modversion['config'][$c]['name'] 	 = "shiori_use_freeurl";
+$modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG4";
+$modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D4";
+$modversion['config'][$c]['formtype']    = "yesno";
+$modversion['config'][$c]['valuetype']   = "int";
+$modversion['config'][$c]['default']     = 0;
+$c++;
+$modversion['config'][$c]['name'] 	 = "shiori_prmt_outofsite";
+$modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG3";
+$modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D3";
+$modversion['config'][$c]['formtype']    = "yesno";
+$modversion['config'][$c]['valuetype']   = "int";
+$modversion['config'][$c]['default']     = 0;
+$c++;
 
 // Notification
 $modversion['hasNotification'] = 0;
@@ -108,6 +122,17 @@ $modversion['hasComments'] = 0;
 
 // On Install
 //$modversion['onInstall']   = "install.php";
+if(    !empty( $_POST['fct'] ) 
+    && !empty( $_POST['op'] )
+    && $_POST['fct'] == 'modulesadmin'
+    && $_POST['op'] == 'install_ok'
+    && $_POST['module'] == $mydirname ) {
+	global $ret;
+	$module_handler =& xoops_gethandler('module');
+	if( !empty( $ret ) ){
+		require  XOOPS_ROOT_PATH . "/modules/" . $mydirname . "/include/oninstall.php" ;
+	}
+}
 
 // onUpdate
 //if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
