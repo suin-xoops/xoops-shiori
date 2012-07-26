@@ -43,6 +43,7 @@ class Shiori extends XoopsObject
 		$this->initVar("mid", 	XOBJ_DTYPE_INT, 	null, 	false);
 		$this->initVar("sort", 	XOBJ_DTYPE_INT, 	0, 	false);
 		$this->initVar("date", 	XOBJ_DTYPE_INT, 	null, 	false);
+		$this->initVar("counter", XOBJ_DTYPE_INT, 	0, 	false);
 		$this->initVar("url", 	XOBJ_DTYPE_TXTBOX, 	null, 	false, 	250);
 		$this->initVar("name", 	XOBJ_DTYPE_TXTBOX, 	null, 	false, 	200);
 		$this->initVar("icon", 	XOBJ_DTYPE_TXTBOX, 	null, 	false, 	100);
@@ -65,11 +66,11 @@ class Shiori extends XoopsObject
 		}
 		if ( empty($id) ) {
 			$id = $this->db->genId($this->db->prefix("shiori_bookmark")."_id_seq");
-			$sql  = "INSERT INTO ".$this->db->prefix("shiori_bookmark")." (id, uid, mid, sort, date, url, name, icon) ";
-			$sql .= "VALUES ($id, $uid, $mid, $sort, $date, ".$this->db->quoteString($url).", ".$this->db->quoteString($name).", ".$this->db->quoteString($icon).")";
+			$sql  = "INSERT INTO ".$this->db->prefix("shiori_bookmark")." (id, uid, mid, sort, date, counter, url, name, icon) ";
+			$sql .= "VALUES ($id, $uid, $mid, $sort, $date, $counter, ".$this->db->quoteString($url).", ".$this->db->quoteString($name).", ".$this->db->quoteString($icon).")";
 		} else {
 			$sql  = "UPDATE ".$this->db->prefix("shiori_bookmark")." SET ";
-			$sql .= "uid=$uid, mid=$mid, sort=$sort, date=$date, url=".$this->db->quoteString($url).", name=".$this->db->quoteString($name).", icon=".$this->db->quoteString($icon)." WHERE id=$id";
+			$sql .= "uid=$uid, mid=$mid, sort=$sort, date=$date, url=".$this->db->quoteString($url).", name=".$this->db->quoteString($name).", icon=".$this->db->quoteString($icon).", counter=$counter WHERE id=$id";
 		}
 		//echo $sql;
 		if ( !$result = $this->db->query($sql) ) {
@@ -167,6 +168,25 @@ class Shiori extends XoopsObject
 		}
 		//echo $sql;
 		return $ret;
+	}
+
+	function incrementCounter($id, $uid){
+		$db =& Database::getInstance();
+		$sql  = "UPDATE ".$db->prefix("shiori_bookmark")." SET counter=counter+1 WHERE id=$id AND uid=$uid";
+		//echo $sql;
+		if ( !$result = $db->queryF($sql) ) {
+			return false;
+		}
+		return true;
+	}
+
+	function CountbyUid($uid){
+		if( empty($uid) ) return false;
+		$db =& Database::getInstance();
+		$sql = "SELECT COUNT(*) FROM ".$db->prefix("shiori_bookmark")." WHERE uid=".$uid;
+		//echo $sql;
+		list($numrows) = $db->fetchRow($db->query($sql));
+		return $numrows;
 	}
 }
 ?>

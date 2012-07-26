@@ -32,7 +32,7 @@ $mydirname = basename( dirname( __FILE__ ) ) ;
 
 // Main
 $modversion['name'] 	   = _MI_SHIORI_NAME;
-$modversion['version']	   = 0.2;
+$modversion['version']	   = 0.3;
 $modversion['description'] = _MI_SHIORI_DESC;
 $modversion['credits']	   = "suin";
 $modversion['author']	   = "suin <a href=\"http://www.suin.jp/\" target=\"_blank\">www.suin.jp</a>";
@@ -91,14 +91,14 @@ $modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D1";
 $modversion['config'][$c]['formtype']    = "text";
 $modversion['config'][$c]['valuetype']   = "int";
 $modversion['config'][$c]['default']     = 30;
-$c++;/*
-$modversion['config'][$c]['name'] 	 = "shiori_item_num_pg";
+$c++;
+$modversion['config'][$c]['name'] 	 = "shiori_bookmark_apage";
 $modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG2";
 $modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D2";
 $modversion['config'][$c]['formtype']    = "text";
 $modversion['config'][$c]['valuetype']   = "int";
-$modversion['config'][$c]['default']     = 15;
-$c++;*/
+$modversion['config'][$c]['default']     = 30;
+$c++;
 $modversion['config'][$c]['name'] 	 = "shiori_use_freeurl";
 $modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG4";
 $modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D4";
@@ -112,6 +112,41 @@ $modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D3";
 $modversion['config'][$c]['formtype']    = "yesno";
 $modversion['config'][$c]['valuetype']   = "int";
 $modversion['config'][$c]['default']     = 0;
+$c++;
+$modversion['config'][$c]['name'] 	 = "shiori_one_star";
+$modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG5";
+$modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D5";
+$modversion['config'][$c]['formtype']    = "text";
+$modversion['config'][$c]['valuetype']   = "int";
+$modversion['config'][$c]['default']     = 25;
+$c++;
+$modversion['config'][$c]['name'] 	 = "shiori_two_stars";
+$modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG6";
+$modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D6";
+$modversion['config'][$c]['formtype']    = "text";
+$modversion['config'][$c]['valuetype']   = "int";
+$modversion['config'][$c]['default']     = 50;
+$c++;
+$modversion['config'][$c]['name'] 	 = "shiori_three_stars";
+$modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG7";
+$modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D7";
+$modversion['config'][$c]['formtype']    = "text";
+$modversion['config'][$c]['valuetype']   = "int";
+$modversion['config'][$c]['default']     = 75;
+$c++;
+$modversion['config'][$c]['name'] 	 = "shiori_four_stars";
+$modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG8";
+$modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D8";
+$modversion['config'][$c]['formtype']    = "text";
+$modversion['config'][$c]['valuetype']   = "int";
+$modversion['config'][$c]['default']     = 100;
+$c++;
+$modversion['config'][$c]['name'] 	 = "shiori_five_stars";
+$modversion['config'][$c]['title']	 = "_MI_SHIORI_CONFIG9";
+$modversion['config'][$c]['description'] = "_MI_SHIORI_CONFIG_D9";
+$modversion['config'][$c]['formtype']    = "text";
+$modversion['config'][$c]['valuetype']   = "int";
+$modversion['config'][$c]['default']     = 125;
 $c++;
 
 // Notification
@@ -135,9 +170,9 @@ if(    !empty( $_POST['fct'] )
 }
 
 // onUpdate
-//if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
-//	include( XOOPS_ROOT_PATH. "/modules/" .$mydirname . "/include/onupdate.inc.php" );
-//}
+if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
+	include( XOOPS_ROOT_PATH. "/modules/" .$mydirname . "/include/onupdate.inc.php" );
+}
 
 
 ?>

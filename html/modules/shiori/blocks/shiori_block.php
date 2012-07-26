@@ -64,5 +64,3 @@ function b_shiori_block()
 
 
 ?>
-
-
