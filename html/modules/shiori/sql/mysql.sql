@@ -11,6 +11,11 @@ CREATE TABLE `shiori_bookmark` (
   `sort` int(3) NOT NULL default '0',
   `name` varchar(200) NOT NULL default '',
   `icon` varchar(100) NOT NULL default '',
-  UNIQUE KEY `id` (`id`)
+  `counter` int(10) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `mid` (`mid`),
+  KEY `url` (`url`),
+  KEY `uid` (`uid`)
 ) TYPE=MyISAM AUTO_INCREMENT=1 ;
 
