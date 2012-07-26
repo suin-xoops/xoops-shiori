@@ -26,7 +26,7 @@
 //               This module; Shiori Copyright (c) 2005 suin                 //
 //                          <http://www.suin.jp>                             //
 //  ------------------------------------------------------------------------ //
-$xoopsOption['pagetype'] = 'user';
+//$xoopsOption['pagetype'] = 'user';
 
 require( '../../mainfile.php' );
 
@@ -51,12 +51,12 @@ switch($op){
   case 'del':
 	
 	if ( ! $xoopsGTicket->check() ) {
-		redirect_header( XOOPS_URL, 3, $xoopsGTicket->getErrors() );
+		xoops_error( $xoopsGTicket->getErrors() );
 		exit();
 	}
 	
 	if( empty( $_POST['del_bok'] ) || !is_array( $_POST['del_bok'] ) ){
-		redirect_header($myurl.'/index.php', 3, _MD_SELECT_DL);
+		xoops_error( _MD_SELECT_DL);
 		exit();
 	}
 	
@@ -77,7 +77,7 @@ switch($op){
 	
 	//エラーがあれば
 	if( count( $errors ) > 0 ){
-		redirect_header($myurl.'/index.php', 3, sprintf( _MD_FAIL_DEL, count( $errors ) ) );
+		xoops_error( sprintf( _MD_FAIL_DEL, count( $errors ) ) );
 		exit();
 	}
 	
@@ -117,10 +117,10 @@ switch($op){
 		$bookmarks = array();
 		
 		$id = $book_arr[$i]->getVar('id');
-		$url = $book_arr[$i]->getVar('url', 'p');
-		$title = $book_arr[$i]->getVar('name', 'p');
+		$url = $book_arr[$i]->getVar('url', 's');
+		$title = $book_arr[$i]->getVar('name', 's');
 		$mid = $book_arr[$i]->getVar('mid');
-		$icon = $book_arr[$i]->getVar('icon', 'p');
+		$icon = $book_arr[$i]->getVar('icon', 's');
 		$counter = $book_arr[$i]->getVar('counter');
 		
 		//モジュール名
