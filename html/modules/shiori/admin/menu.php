@@ -11,4 +11,9 @@
  *
  */
 
+$adminmenu[] = array(
+	'title' => _SHIORI_ADMIN1,
+	'link'  => 'admin/index.php',
+);
+
 ?>

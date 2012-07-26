@@ -17,6 +17,48 @@ class Shiori_Object_BookmarkHandler extends Shiori_Abstract_ObjectHandler
 	protected $table   = 'shiori_bookmark';
 	protected $primary = 'id';
 
+	public function loadsStatics($order = 'users', $sort = 'desc', $limit = null, $start = null)
+	{
+		$orderParams = array('mid', 'url', 'title', 'clicks', 'users');
+
+		if ( !in_array($order, $orderParams) )
+		{
+			$order = 'users';
+		}
+
+		if ( $sort != 'desc' ) $sort = 'asc';
+
+		$sql = "select `mid`, `url`, `name`, sum(`counter`) as `clicks`, count(*) as `users` from `%s` group by `url` order by `%s` %s";
+		$sql = sprintf($sql, $this->table, $order, $sort);
+		$rsrc = $this->db->query($sql, $limit, $start);
+
+		$bookmarks = array();
+
+		while ( $vars = $this->db->fetchArray($rsrc) )
+		{
+			$bookmarks[] = array(
+				'mid'    => $vars['mid'],
+				'url'    => $vars['url'],
+				'name'   => $vars['name'],
+				'clicks' => $vars['clicks'],
+				'users'  => $vars['users'],
+			);
+		}
+
+		return $bookmarks;
+	}
+
+	public function count()
+	{
+		$sql = "select count(distinct `url`) from `%s`";
+		$sql = sprintf($sql, $this->table);
+		$rsrc = $this->_query($sql);
+
+		list($total) = $this->db->fetchRow($rsrc);
+
+		return $total;
+	}
+
 	public function loadsByUid($uid, $limit = null, $start = null)
 	{
 		$uid = intval($uid);

@@ -70,4 +70,18 @@
 	<dd>このページは既にブックマーク済みです。</dd>
 	<dt>No permisson</dt>
 	<dd>アクセス権限がありません。</dd>
+	<dt>Statistics</dt>
+	<dd>ブックマーク統計</dd>
+	<dt>Page</dt>
+	<dd>ページ</dd>
+	<dt>Enrollment</dt>
+	<dd>登録者数</dd>
+	<dt>Clicks</dt>
+	<dd>クリック数</dd>
+	<dt>Results per page:</dt>
+	<dd>1ページあたり表示数:</dd>
+	<dt>GO</dt>
+	<dd>送信</dd>
+	<dt>All</dt>
+	<dd>全て</dd>
 </dl>

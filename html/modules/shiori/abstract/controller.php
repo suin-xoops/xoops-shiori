@@ -30,6 +30,7 @@ abstract class Shiori_Abstract_Controller
 		global $xoopsModuleConfig;
 		$this->config =& $xoopsModuleConfig;
 		$this->data['config'] = $this->config;
+		$this->data['url'] = SHIORI_URL;
 	}
 
 	public function main()

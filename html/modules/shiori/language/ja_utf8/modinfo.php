@@ -26,4 +26,5 @@ define('_SHIORI_CONFIG3', "URLを入力して登録できるようにする");
 define('_SHIORI_CONFIG4', "外部のサイトへのブックマークを許可する");
 define('_SHIORI_CONFIG4_DESC', "「URLを入力して登録できるようにする」が有効な場合、「はい」にすると ".XOOPS_URL."/* 以外のURLへリンクすることが可能になります。");
 
+define('_SHIORI_ADMIN1', "ブックマーク統計");
 ?>

@@ -1,7 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dl>
-	<dt>Name</dt>
-	<dd>Name</dd>
-	<dt>Content</dt>
-	<dd>Content</dd>
+	<dt>Bookmarks</dt>
+	<dd>Bookmarks</dd>
+	<dt>Profile</dt>
+	<dd>Profile</dd>
+	<dt>You can bookmark {1} pages.</dt>
+	<dd>You can bookmark {1} pages.</dd>
+	<dt>You can bookmark other sites.</dt>
+	<dd>You can bookmark other sites.</dd>
+	<dt>You cannot bookmark other sites.</dt>
+	<dd>You cannot bookmark other sites.</dd>
+	<dt>check all</dt>
+	<dd>check all</dd>
+	<dt>Link</dt>
+	<dd>Link</dd>
+	<dt>Module</dt>
+	<dd>Module</dd>
+	<dt>Delete</dt>
+	<dd>Delete</dd>
+	<dt>No bookmarks</dt>
+	<dd>No bookmarks</dd>
+	<dt>Add bookmark from URL</dt>
+	<dd>Add bookmark from URL</dd>
+	<dt>URL</dt>
+	<dd>URL</dd>
+	<dt>Add</dt>
+	<dd>Add</dd>
+	<dt>Icon</dt>
+	<dd>Icon</dd>
+	<dt>Title</dt>
+	<dd>Title</dd>
+	<dt>Save</dt>
+	<dd>Save</dd>
+	<dt>This page has been bookmarked.</dt>
+	<dd>This page has been bookmarked.</dd>
+	<dt>Do you want to bookmark this page?</dt>
+	<dd>Do you want to bookmark this page?</dd>
+	<dt>Submit</dt>
+	<dd>Submit</dd>
+	<dt>No module</dt>
+	<dd>No module</dd>
+	<dt>User Information</dt>
+	<dd>User Information</dd>
+	<dt>Search</dt>
+	<dd>Search</dd>
+	<dt>Private Message</dt>
+	<dd>Private Message</dd>
+	<dt>Home</dt>
+	<dd>Home</dd>
+	<dt>Other Site</dt>
+	<dd>Other Site</dd>
+	<dt>{1} bookmarks was not deleted.</dt>
+	<dd>{1} bookmarks was not deleted.</dd>
+	<dt>Database Error</dt>
+	<dd>Database Error</dd>
+	<dt>Successly bookmarked.</dt>
+	<dd>Successly bookmarked.</dd>
+	<dt>Successly deleted.</dt>
+	<dd>Successly deleted.</dd>
+	<dt>URL is empty.</dt>
+	<dd>URL is empty.</dd>
+	<dt>URL is invalid.</dt>
+	<dd>URL is invalid.</dd>
+	<dt>Other site pages cannot be bookmarked.</dt>
+	<dd>Other site pages cannot be bookmarked.</dd>
+	<dt>No space.</dt>
+	<dd>No space.</dd>
+	<dt>This URL has already been bookmarked.</dt>
+	<dd>This URL has already been bookmarked.</dd>
+	<dt>No permisson</dt>
+	<dd>No permisson</dd>
+	<dt>Statistics</dt>
+	<dd>Statistics</dd>
+	<dt>Page</dt>
+	<dd>Page</dd>
+	<dt>Enrollment</dt>
+	<dd>Enrollment</dd>
+	<dt>Clicks</dt>
+	<dd>Clicks</dd>
+	<dt>Results per page:</dt>
+	<dd>Results per page:</dd>
+	<dt>GO</dt>
+	<dd>GO</dd>
+	<dt>All</dt>
+	<dd>All</dd>
 </dl>

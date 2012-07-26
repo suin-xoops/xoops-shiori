@@ -24,4 +24,6 @@ define('_SHIORI_CONFIG3', "Allow users to bookmark URLs manually");
 define('_SHIORI_CONFIG4', "Allow users to bookmark outside websites");
 define('_SHIORI_CONFIG4_DESC', "");
 
+define('_SHIORI_ADMIN1', "Statistics");
+
 ?>

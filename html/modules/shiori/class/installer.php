@@ -94,6 +94,36 @@ function shiori_installer($module, $mydirname, $event)
 	require_once XOOPS_ROOT_PATH.'/class/template.php' ;
 	xoops_template_clear_module_cache($mid);
 
+	// delete shiori language cache.
+	if ( defined('XOOPS_TRUST_PATH') and file_exists(XOOPS_TRUST_PATH . '/cache') )
+	{
+		$cacheDir = XOOPS_TRUST_PATH . '/cache';
+	}
+	else
+	{
+		$cacheDir = XOOPS_ROOT_PATH . '/cache';
+	}
+
+	$dir = opendir($cacheDir);
+	while ( $file = readdir($dir) )
+	{
+		if ( is_file($cacheDir.'/'.$file) )
+		{
+			if ( preg_match('/^shiori_/', $file) )
+			{
+				if ( @unlink($cacheDir.'/'.$file) )
+				{
+					$ret[] = 'Language cache was deleted: <strong>'.htmlspecialchars($file).'</strong>';
+				}
+				else
+				{
+					$ret[] = '<span style="color:#ff0000;">ERROR: Language cache could not be deleted: <strong>'.htmlspecialchars($file).'</strong></span>';
+				}
+			}
+		}
+	}
+	closedir($dir);
+
 	return true;
 }
 
