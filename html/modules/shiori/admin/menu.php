@@ -1,11 +1,14 @@
 <?php
-$s=0;
-$adminmenu[$s]['title'] = _MI_SHIORI_MENU2;
-$adminmenu[$s]['link']  = "admin/index.php?op=lank";
-$adminmenu[$s]['desc']  = _MI_SHIORI_MENU_D2;
-$s++;
-$adminmenu[$s]['title'] = _MI_SHIORI_MENU1;
-$adminmenu[$s]['link']  = "admin/myblocksadmin.php";
-$adminmenu[$s]['desc']  = _MI_SHIORI_MENU_D1;
-$s++;
+/**
+ * A simple description for this script
+ *
+ * PHP Version 5.2.4 or Upper version
+ *
+ * @package    Shiori
+ * @author     Hidehito NOZAWA aka Suin <http://suin.asia>
+ * @copyright  2009 Hidehito NOZAWA
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU GPL v2 or later
+ *
+ */
+
 ?>
