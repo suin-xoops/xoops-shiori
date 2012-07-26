@@ -130,7 +130,7 @@ case 'lank':
 		if( $sum != $pre_sum){ $i++; $lank = $i; }
 	        echo "\n".'<tr class="even">';
 	        echo "\n".'<td width="30" align="center">'.$lank.'</td>';
-	        echo "\n".'<td><a href="'.$url.'">'.htmlspecialchars( $url ).'</a></td>';
+	        echo "\n".'<td><a href="'. htmlspecialchars($url).'">'.htmlspecialchars( $url ).'</a></td>';
 	        echo "\n".'<td width="50" align="center">'.$sum.'</td>';
 	        echo "\n".'</tr>';
 		$pre_sum = $sum;
@@ -150,7 +150,7 @@ case 'lank':
 		if( $sum != $pre_sum){ $i++; $lank = $i; }
 	        echo "\n".'<tr class="even">';
 	        echo "\n".'<td width="30" align="center">'.$lank.'</td>';
-	        echo "\n".'<td><a href="'.$url.'">'.htmlspecialchars( $url ).'</a></td>';
+	        echo "\n".'<td><a href="'.htmlspecialchars($url).'">'.htmlspecialchars( $url ).'</a></td>';
 	        echo "\n".'<td width="50" align="center">'.$sum.'</td>';
 	        echo "\n".'</tr>';
 		$pre_sum = $sum;
